@@ -37,7 +37,11 @@ Este script inclui três módulos principais:
 ```bash
 pip install paramiko
 
-para abrir: python main.py
+para abrir:  
+git clone https://github.com/seu-usuario/nome-do-repositorio.git
+cd nome-do-repositorio
+python main.py
+
 
 escolher as opções do menu: 
 [1] DDOS Defender
