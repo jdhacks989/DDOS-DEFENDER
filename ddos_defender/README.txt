@@ -1,63 +1,67 @@
-Como testar seu projeto DDOS Defender na prática
-1. Prepare um servidor para testar
-Você precisa de um servidor Linux (pode ser VPS, uma máquina virtual ou até um servidor local) que tenha:
+# 🛡️ DDOS Defender
 
-SSH habilitado
+**DDOS Defender** é uma ferramenta avançada de segurança automatizada que protege servidores contra ataques de negação de serviço (DDoS) via análise de logs, bloqueio de IPs suspeitos e geração de registros detalhados.
 
-Servidor web (ex: Apache) rodando com arquivo de log (/var/log/apache2/access.log) ou ajuste o caminho no código se for diferente
+---
 
-ufw instalado para bloqueio de IPs (no script você usa comando sudo ufw deny from IP)
+## ⚙️ Funcionalidades
 
-2. Configure seu projeto
-Tenha o script .py (ou .exe se já gerou) no seu PC local.
+- 🔎 **Detecção automática** de IPs com comportamentos suspeitos
+- 🚫 **Bloqueio de IPs maliciosos** usando regras de firewall (UFW)
+- 🧾 **Geração automática de logs** de atividade e ações
+- 📊 Menu interativo para acesso rápido às funções principais
+- 🔐 Conexão via SSH para atuar diretamente no servidor
 
-Se for o .exe, certifique-se que está na mesma pasta que os arquivos de log, se seu script usar algum arquivo local.
+---
 
-3. Execute o programa
-No terminal (ou executando o .exe):
+## 📁 Estrutura
 
-Rode python main.py (se for script)
+O projeto está contido em um único arquivo:  o "main.py"
 
-Ou clique duas vezes no main.exe
+Este script inclui três módulos principais:
 
-Vai aparecer o menu:
+- **DDOS Defender**: Detecta e responde automaticamente a ataques
+- **IP Blocker**: Bloqueia manualmente IPs informados pelo usuário
+- **Log Generator**: Gera registros de eventos importantes
 
-csharp
-Copiar
-Editar
-==========================
-      DDOS TOOLBOX
-==========================
+---
+
+## 🖥️ Requisitos
+
+- Python 3.8 ou superior
+- Sistema operacional Windows, Linux ou MacOS
+- Acesso SSH ao servidor que será protegido
+
+### 📦 Bibliotecas necessárias:
+
+```bash
+pip install paramiko
+
+para abrir: python main.py
+
+escolher as opções do menu: 
 [1] DDOS Defender
 [2] Bloquear IPs suspeitos
 [3] Gerar Logs
 [4] Sair
-4. Teste o DDOS Defender (opção 1)
-Escolha a opção 1 para rodar o DDOS Defender.
 
-Ele vai pedir:
+🔐 Exemplo de uso
+O DDOS Defender acessa o log do Apache (/var/log/apache2/access.log)
 
-IP do servidor
+Conta o número de acessos por IP
 
-Usuário SSH
+Bloqueia automaticamente IPs que ultrapassarem o limite configurado
 
-Senha SSH
+Registra a ação em um arquivo .log local
 
-Ele vai se conectar no servidor, analisar os logs e bloquear IPs suspeitos automaticamente.
+você pode usar esses comandos pra executar em linux
+temos também o arquivo.exe pra Windows :3
 
-Se encontrar IPs para bloquear, ele vai mandar bloquear via ufw e registrar o evento no arquivo de log local (ddos_defender.log).
 
-5. Teste o IP Blocker manual (opção 2)
-Você pode usar para bloquear IPs manualmente, se implementou essa funcionalidade.
 
-6. Teste o Log Generator (opção 3)
-Ele vai mostrar mensagens de log baseadas no que estiver acontecendo no sistema.
+👨‍💻 Autor
+Joshua Davi Santos Selistre
 
-7. Verifique os logs
-Abra o arquivo ddos_defender.log para ver os registros do que foi bloqueado ou dos eventos detectados.
+Desenvolvedor Python
 
-Importante para testes reais
-Para simular ataques, você pode usar ferramentas de teste de carga (ex: ab - Apache Benchmark) pra gerar muitas requisições de um IP.
-
-Verifique se o seu servidor responde corretamente e se bloqueia os IPs como esperado.
-
+Brasil – 🇧🇷
