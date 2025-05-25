@@ -70,8 +70,8 @@ Bloqueia automaticamente IPs que ultrapassarem o limite configurado
 Registra a ação em um arquivo .log local
 
 você pode usar esses comandos pra executar em linux
-temos também o arquivo.exe pra Windows :3
-
+temos também o arquivo.exe pra Windows :3 aqui a baixo
+https://www.mediafire.com/folder/6kq8k9ofqa5s7/dist
 
 
 👨‍💻 Autor
