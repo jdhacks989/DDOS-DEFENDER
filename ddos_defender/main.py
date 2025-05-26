@@ -27,13 +27,15 @@ def enviar_alerta(email_remetente, senha_remetente, email_destino, assunto, corp
         msg["From"] = email_remetente
         msg["To"] = email_destino
 
-        # Usando Gmail como exemplo (ajuste conforme seu servidor SMTP)
         server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
         server.login(email_remetente, senha_remetente)
         server.send_message(msg)
         server.quit()
         print(f"{green}[+] Alerta enviado para {email_destino}{reset}")
         gerar_log(f"Alerta enviado para {email_destino}: {assunto}")
+    except smtplib.SMTPAuthenticationError as e:
+        print(f"[ERRO] Falha de autenticação ao enviar alerta: {e}")
+        gerar_log(f"Erro de autenticação no envio de alerta: {e}")
     except Exception as e:
         print(f"[ERRO] Falha ao enviar alerta: {e}")
         gerar_log(f"Erro ao enviar alerta: {e}")
@@ -51,7 +53,7 @@ def conectar_ssh(ip, usuario, senha):
 
 def analisar_logs(cliente):
     print("[*] Analisando logs do servidor...")
-    comando = "cat /var/log/apache2/access.log"  # Ajuste conforme seu servidor
+    comando = "cat /var/log/apache2/access.log"
     stdin, stdout, stderr = cliente.exec_command(comando)
     logs = stdout.read().decode()
     ips = re.findall(r'[0-9]+(?:\.[0-9]+){3}', logs)
@@ -64,7 +66,7 @@ def analisar_logs(cliente):
     return suspeitos
 
 def bloquear_ip(cliente, ip):
-    comando = f"sudo ufw deny from {ip}"
+    comando = f"echo 'sua_senha_sudo' | sudo -S ufw deny from {ip}"
     stdin, stdout, stderr = cliente.exec_command(comando)
     erro = stderr.read().decode()
     if erro:
