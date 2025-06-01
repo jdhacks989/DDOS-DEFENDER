@@ -50,7 +50,8 @@ pip install paramiko
 
 para abrir:  
 git clone https://github.com/seu-usuario/nome-do-repositorio.git
-cd nome-do-repositorio
+cd DDOS-DEFENDER
+cd ddos_defender
 python main.py
 
 
