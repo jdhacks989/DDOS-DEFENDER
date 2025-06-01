@@ -51,9 +51,31 @@ def conectar_ssh(ip, usuario, senha):
         print(f"[ERRO] Falha na conexão SSH: {e}")
         return None
 
+def detectar_log_acesso(cliente):
+    caminhos_logs = [
+        "/var/log/apache2/access.log",
+        "/var/log/nginx/access.log",
+        "/var/log/lighttpd/access.log"
+    ]
+    for caminho in caminhos_logs:
+        comando = f"test -f {caminho} && echo 'existe' || echo 'nao_existe'"
+        stdin, stdout, stderr = cliente.exec_command(comando)
+        resultado = stdout.read().decode().strip()
+        if resultado == "existe":
+            print(f"{green}[+] Log de acesso detectado em: {caminho}{reset}")
+            return caminho
+    print("[ERRO] Nenhum log de acesso encontrado. Verifique se o servidor web está instalado e em execução.")
+    return None
+
 def analisar_logs(cliente):
     print("[*] Analisando logs do servidor...")
-    comando = "cat /var/log/apache2/access.log"
+
+    log_path = detectar_log_acesso(cliente)
+    if not log_path:
+        gerar_log("Não foi possível detectar o servidor web.")
+        return []
+
+    comando = f"cat {log_path}"
     stdin, stdout, stderr = cliente.exec_command(comando)
     logs = stdout.read().decode()
     ips = re.findall(r'[0-9]+(?:\.[0-9]+){3}', logs)
